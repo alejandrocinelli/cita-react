@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react'
+import Error from './Error'
 
-function Formulario() {
+function Formulario({setPacientes,Pacientes}) {
 
     const [nombre, setNombre] = useState("")
     const [dueño, setDueño] = useState("")
@@ -20,6 +21,23 @@ function Formulario() {
     else {
        // console.log("todo en orden")
         setError(false)
+
+        const objetoPaciente = {
+            nombre,
+            dueño,
+            email,
+            fecha,
+            sintomas
+        }
+        //console.log(objetoPaciente)
+        setPacientes([...Pacientes,objetoPaciente])
+
+        setDueño("")
+        setEmail("")
+        setFecha("")
+        setNombre("")
+        setSintomas("")
+        
     }
 }
 
@@ -102,9 +120,7 @@ function Formulario() {
         <input type="submit"
         value={"Agregar Paciente"}
         className="text-indigo-600 bg-slate-300 p-3 w-full font-bold uppercase hover:bg-slate-400 rounded-md" />
-        {error ? <div>
-            <p className='bg-red-600 text-center text-white p-2 my-2 font-bold uppercase rounded-md'>Todo los campos son obligatorios</p>
-        </div> : null}
+        {error ? <Error mensaje={'Todo los campos son obligatorios'}/> : null}
     </form>
     </div>
 

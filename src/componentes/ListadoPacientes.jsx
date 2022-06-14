@@ -1,6 +1,9 @@
-import Pacientes from "./Pacientes"
+import Pacientes from './Pacientes'
 
-function ListadoPacientes() {
+function ListadoPacientes({pacientes}) {
+  console.log(pacientes)
+  
+
   return (
     <div className="md:w-1/2 lg:w-3/5 md:h-screen overflow-y-scroll">
 
@@ -8,9 +11,16 @@ function ListadoPacientes() {
         <p className="text-center mt-5 text-lg mb-10">Administra tus {""}
             <span className="text-indigo-600 font-bold ">pacientes y citas</span>
         </p>
-        <Pacientes/>
-        <Pacientes/>
-        <Pacientes/>
+         
+     {pacientes.map((paciente)=>{
+      return (
+        <Pacientes
+         paciente={paciente}
+        />
+      )
+     } )}
+     
+          
         </div>
   )
 }
