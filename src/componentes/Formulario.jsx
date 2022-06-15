@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import Error from './Error'
 
-function Formulario({setPacientes,Pacientes}) {
+function Formulario({setPacientes,Pacientes,pacientee}) {
 
     const [nombre, setNombre] = useState("")
     const [dueño, setDueño] = useState("")
@@ -9,6 +9,27 @@ function Formulario({setPacientes,Pacientes}) {
     const [fecha,setFecha] = useState("")   
     const [sintomas, setSintomas] = useState("")
     const [error, setError] = useState(false)
+
+    useEffect(() => {
+        //* con Object.keys puedo saber si el objeto pacientee esta vacio o no */
+      if(Object.keys(pacientee).length>0){
+        setNombre(pacientee.nombre)
+        setDueño(pacientee.dueño)
+        setEmail(pacientee.email)
+        setFecha(pacientee.fecha)
+        setSintomas(pacientee.sintomas)
+      }
+    }, [pacientee])
+    
+
+
+    const generarID = () => {
+
+        const random = Math.random().toString(36).substring(2) 
+        const date = Date.now().toString(36)
+        return random + date
+        
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -27,7 +48,8 @@ function Formulario({setPacientes,Pacientes}) {
             dueño,
             email,
             fecha,
-            sintomas
+            sintomas,
+            id: generarID() // genera un id para mandar a lista paciente y que no se repita
         }
         //console.log(objetoPaciente)
         setPacientes([...Pacientes,objetoPaciente])
@@ -118,7 +140,7 @@ function Formulario({setPacientes,Pacientes}) {
         </div> 
         </div>
         <input type="submit"
-        value={"Agregar Paciente"}
+        value={pacientee.id ? "Editar Paciente" : "Agregar Paciente"}
         className="text-indigo-600 bg-slate-300 p-3 w-full font-bold uppercase hover:bg-slate-400 rounded-md" />
         {error ? <Error mensaje={'Todo los campos son obligatorios'}/> : null}
     </form>

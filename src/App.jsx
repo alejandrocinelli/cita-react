@@ -6,18 +6,22 @@ import ListadoPacientes from './componentes/ListadoPacientes'
 
 
 function App() {
-  const [Pacientes,setPacientes] = useState([]);
 
-  
+  const [Pacientes,setPacientes] = useState([]);
+  const [pacientee,setPacientee] = useState({}) // para editar el paciente que selecciono desde Listado de Pacientes
+
    
   return (
     <div className='container mx-auto mt-10'>
     <Header/>
     <div className='mt-12 md:flex'>
-    <Formulario Pacientes={Pacientes} setPacientes={setPacientes} />
-    <ListadoPacientes pacientes={Pacientes}/>
+    <Formulario Pacientes={Pacientes} setPacientes={setPacientes} pacientee={pacientee} />{/* con esto mando pacientee que quiero editar*/}
+    <ListadoPacientes 
+    pacientes={Pacientes}
+    setPacientee={setPacientee}
+    /> 
     </div>
-   
+  
     </div>
   )
 }
