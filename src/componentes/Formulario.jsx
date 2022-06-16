@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import Error from './Error'
 
-function Formulario({setPacientes,Pacientes,pacientee}) {
+function Formulario({setPacientes,Pacientes,pacientee, setPacientee}) {
 
     const [nombre, setNombre] = useState("")
     const [dueño, setDueño] = useState("")
@@ -48,11 +48,28 @@ function Formulario({setPacientes,Pacientes,pacientee}) {
             dueño,
             email,
             fecha,
-            sintomas,
-            id: generarID() // genera un id para mandar a lista paciente y que no se repita
+            sintomas
+            
         }
-        //console.log(objetoPaciente)
-        setPacientes([...Pacientes,objetoPaciente])
+        
+
+        if(pacientee.id){  // para editar un paciente
+
+          objetoPaciente.id = pacientee.id
+          const pacientesActualizados = Pacientes.map(pacienteEnState => pacienteEnState.id === objetoPaciente.id ? objetoPaciente : pacienteEnState)
+          setPacientes(pacientesActualizados)
+          setPacientee({})
+
+        }
+
+        else {   // nuevo paciente
+          
+          objetoPaciente.id = generarID() // al objetopaciente le genera un id para mandar a lista paciente y que no se repita, antes lo hacia en el objeto pero esto me sirve para editar
+          setPacientes([...Pacientes,objetoPaciente])
+
+        }
+     
+        // re inicio el form
 
         setDueño("")
         setEmail("")

@@ -1,7 +1,7 @@
 
 import Pacientes from './Pacientes'
 
-function ListadoPacientes({pacientes, setPacientee}) {
+function ListadoPacientes({pacientes, setPacientee, deletePaciente}) {
   
   return (
     <div className="md:w-1/2 lg:w-3/5 md:h-screen overflow-y-scroll">
@@ -19,6 +19,7 @@ function ListadoPacientes({pacientes, setPacientee}) {
             key={paciente.id}
             paciente={paciente}
             setPacientee={setPacientee}
+            deletePaciente={deletePaciente}
             />
             )
           } )}
